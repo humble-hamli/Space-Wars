@@ -4,7 +4,7 @@ class Ship {
   constructor() {
     this.pos = { x: 0, y: 0 };
     this.rotation = 180
-    this.speed = { x: 0, y: 1 };
+    this.speed = { x: 0, y: 1, max:10 };
     this.size = 10;
   }
   setStartPosition() {
@@ -31,26 +31,30 @@ class Ship {
     }
   }
 
+  updateRotation() {
+    translate(0,-this.pos.y)
+    rotate(this.rotation)
+  }
+
 
   drawShip() {
-    push()
-    rotate(this.rotation)
+    // translate(0,-this.pos.y)
     beginShape();
     //Main Origin Point
     vertex(this.pos.x, this.pos.y);
+    translate(0,-this.pos.y)
     vertex(this.pos.x - this.size / 2, this.pos.y - this.size);
     vertex(this.pos.x + this.size / 2, this.pos.y - this.size);
     endShape(CLOSE);
-    pop()
   }
 
   turnLeft() {
-    this.rotation -= 40
+    this.rotation -= 30
     console.log(this.rotation)
   }
 
   turnRight() {
-    this.rotation += 40
+    this.rotation += 30
     console.log(this.rotation)
   }
 
@@ -70,7 +74,9 @@ function playSpacewars() {
   push();
   translate(width / 2, height / 2)
   P1.updatePosition()
+  P1.updateRotation()
   P1.drawShip()
+  console.log(P1.pos.y, P1.pos.x)
   pop();
 }
 
